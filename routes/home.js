@@ -2,16 +2,15 @@ const express = require("express");
 const router = express.Router();
 const axios = require('axios');
 
-router.get('/create-job', async (req, res) => {
-  const { token, cron_expression, url } = req.query;
+router.post('/create-job', async (req, res) => {
+  const { token, cron_expression, url, cron_job_name } = req.body;
 
   try {
-    const response = await axios.get(`https://www.easycron.com/rest/add`, {
-      params: {
-        token,
-        cron_expression,
-        url
-      }
+    const response = await axios.post(`https://www.easycron.com/rest/add`, {
+      token,
+      cron_expression,
+      url,
+      cron_job_name
     });
     res.send(response.data);
   } catch (error) {
