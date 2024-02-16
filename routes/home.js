@@ -2,12 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require('axios');
 
-const routes = express();
-const PORT = process.env.PORT || 5000;
-
-routes.use(express.json());
-
-routes.get('/create-job', async (req, res) => {
+router.get('/create-job', async (req, res) => {
   const { token, cron_expression, url } = req.query;
 
   try {
@@ -23,7 +18,5 @@ routes.get('/create-job', async (req, res) => {
     res.status(500).send({ error: 'Failed to create job' });
   }
 });
-
-
 
 module.exports = router;
