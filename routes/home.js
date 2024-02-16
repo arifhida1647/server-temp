@@ -18,4 +18,20 @@ router.post('/create-job', async (req, res) => {
   }
 });
 
+router.get('/delete-job', async (req, res) => {
+  const { token, id } = req.query;
+
+  try {
+    const response = await axios.get(`https://www.easycron.com/rest/delete`, {
+      params: {
+        token,
+        id
+      }
+    });
+    res.send(response.data);
+  } catch (error) {
+    res.status(500).send({ error: 'Failed to delete job' });
+  }
+});
+
 module.exports = router;
