@@ -1,6 +1,7 @@
 // Import packages
 const express = require("express");
 const home = require("./routes/home");
+const cors = require('cors');
 
 // Middlewares
 const app = express();
@@ -15,7 +16,9 @@ app.use((req, res, next) => {
   );
   next();
 });
-app.use(cors()); 
+app.use(cors({
+  methods: ['GET', 'POST', 'PUT', 'DELETE'] // Menambahkan PUT ke daftar metode yang diizinkan
+})); 
 // Routes
 app.use("/home", home);
 
