@@ -34,8 +34,28 @@ router.get("/delete-job", async (req, res) => {
   }
 });
 
+router.delete("/delete/:id", async (req, res) => {
+  const token = "cvQ1UehtttwzRbOVxWVb1YLYjlqScpmBLWO09wSqGBY="; // Token bearer
+  const jobId = req.params.id; // Mendapatkan ID dari URL
+  try {
+    const response = await axios.delete(
+      `https://api.cron-job.org/jobs/${jobId}`, // Menggunakan ID dari URL
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    res.send(response.data);
+  } catch (error) {
+    console.error("Failed to delete job:", error);
+    res.status(500).send({ error: "Failed to delete job" });
+  }
+});
+
+
 router.put("/update-job", async (req, res) => {
-  const {url, hoursTime, minutesTime } = req.body.job;
+  const { url, hoursTime, minutesTime } = req.body.job;
   const token = "cvQ1UehtttwzRbOVxWVb1YLYjlqScpmBLWO09wSqGBY="; // Token bearer
 
   try {
